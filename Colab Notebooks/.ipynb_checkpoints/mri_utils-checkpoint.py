@@ -37,13 +37,12 @@ def get_MRI_CVAE_3D(input_shape=(64,64,64,1), latent_dim=2, batch_size = 32, dis
     filters = 16
     intermediate_dim = 128
     epochs = 10
-    
 
     # VAE model = encoder + decoder
     # build encoder model
     inputs = Input(shape=input_shape, name='encoder_input')
     x = inputs
-    for i in range(nlayers):
+    for i in range(2):
         filters *= 2
         x = Conv3D(filters=filters,
                    kernel_size=kernel_size,
@@ -73,7 +72,7 @@ def get_MRI_CVAE_3D(input_shape=(64,64,64,1), latent_dim=2, batch_size = 32, dis
     x = Dense(shape[1] * shape[2] * shape[3] * shape[4], activation='relu')(x)
     x = Reshape((shape[1], shape[2], shape[3],shape[4]))(x)
 
-    for i in range(nlayers):
+    for i in range(2):
         x = Conv3DTranspose(filters=filters,
                             kernel_size=kernel_size,
                             activation='relu',
@@ -150,15 +149,6 @@ def get_MRI_CCVAE_3D(input_shape=(64,64,64,1), latent_dim=2, beta=1, disentangle
     # build encoder model
     tg_inputs = Input(shape=input_shape, name='tg_inputs')
     bg_inputs = Input(shape=input_shape, name='bg_inputs')
-    
-    
-    for i in range(nlayers):
-        filters *= 2
-        x = Conv3D(filters=filters,
-                   kernel_size=kernel_size,
-                   activation='relu',
-                   strides=2,
-                   padding='same')(x)
 
     z_conv1 = Conv3D(filters=filters*2,
                kernel_size=kernel_size,
@@ -250,7 +240,7 @@ def get_MRI_CCVAE_3D(input_shape=(64,64,64,1), latent_dim=2, beta=1, disentangle
 #     x = Dense(shape_z[1] * shape_z[2] * shape_z[3], activation='relu', use_bias=bias)(x)
 #     x = Reshape((shape_z[1], shape_z[2], shape_z[3]))(x)
 
-    for i in range(nlayers):
+    for i in range(2):
         x = Conv3DTranspose(filters=filters,
                             kernel_size=kernel_size,
                             activation='relu',

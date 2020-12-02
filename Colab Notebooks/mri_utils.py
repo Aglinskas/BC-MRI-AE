@@ -38,7 +38,7 @@ def get_MRI_CVAE_3D(input_shape=(64,64,64,1), latent_dim=2, batch_size = 32, dis
     intermediate_dim = 128
     epochs = 10
     nlayers = 2
-
+    
     # VAE model = encoder + decoder
     # build encoder model
     inputs = Input(shape=input_shape, name='encoder_input')

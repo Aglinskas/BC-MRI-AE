@@ -1,0 +1,609 @@
+Script started on 2021-02-01 18:00:34-05:00
+]0;aglinska@l001:~/BC-MRI-AE/Colab Notebooks(base) [aglinska@g002 Colab Notebooks]$ pwd
+/data/aglinska/BC-MRI-AE/Colab Notebooks
+]0;aglinska@l001:~/BC-MRI-AE/Colab Notebooks(base) [aglinska@g002 Colab Notebooks]$ ls
+ABIDE-DL.ipynb           helper_funcs.py                         MRI-CCAE-3D-TRAIN-CCAE.ipynb               Other-TinyDataInAFolder.ipynb
+ABIDE-GetInShape.ipynb   IBP-Binary.ipynb                        MRI-CCAE-3D-TRAIN-CCAE-moreConvTest.ipynb  [0m[38;5;33m__pycache__[0m
+[38;5;33mAnalyses[0m                 IBP-Graded_IPB_recoversFactors.ipynb    mri_utils2.py                              results-cVAE-2-dimensions-andromeda.ipynb
+analysis-CCAE.ipynb      IBP-Graded.ipynb                        mri_utils.py                               results-cVAE-2-dimensions.ipynb
+bc_mri_ae_utils.py       MRI_CCAE_3D-main.ipynb                  NIH-R21-ExtractData-fMRI-CAE.ipynb         results-cVAE-32-dimensions-andromeda.ipynb
+CompareMethods.ipynb     MRI_CCAE_3D_TRAIN_CCAE_andromeda.ipynb  [38;5;33mnilearn_cache[0m                              results-cVAE-32-dimensions.ipynb
+error                    MRI_CCAE_3D_TRAIN_CCAE_andromeda.py     Other-DoGit.ipynb                          Test-notebook.ipynb
+fMRI-CAE-NoLinear.ipynb  MRI-CCAE-3D-TRAIN-CCAE-colab.ipynb      Other-Extract-SFARI-anatData.ipynb         [38;5;33mTrash[0m
+HCP-AcessData.ipynb      MRI_CCAE_3D_TRAIN_CCAE_colab_new.ipynb  Other-PLAY.ipynb                           Untitled.ipynb
+]0;aglinska@l001:~/BC-MRI-AE/Colab Notebooks(base) [aglinska@g002 Colab Notebooks]$ jupyter nbconvert --to notebook --execute MRI_CCAE_3D_TRAIN_CCAE_andromeda.ipynb
+[NbConvertApp] Converting notebook MRI_CCAE_3D_TRAIN_CCAE_andromeda.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: python3
+2021-02-01 18:01:00.465606: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:06.772175: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-02-01 18:01:06.794525: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2400000000 Hz
+2021-02-01 18:01:06.797046: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x555559727690 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-02-01 18:01:06.797064: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-02-01 18:01:06.800490: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcuda.so.1
+2021-02-01 18:01:07.092778: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x555559729a90 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2021-02-01 18:01:07.092809: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-16GB, Compute Capability 7.0
+2021-02-01 18:01:07.092815: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (1): Tesla V100-SXM2-16GB, Compute Capability 7.0
+2021-02-01 18:01:07.092818: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (2): Tesla V100-SXM2-16GB, Compute Capability 7.0
+2021-02-01 18:01:07.092822: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (3): Tesla V100-SXM2-16GB, Compute Capability 7.0
+2021-02-01 18:01:07.096670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:18:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:07.097476: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 1 with properties: 
+pciBusID: 0000:3b:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:07.098269: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 2 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:07.099043: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 3 with properties: 
+pciBusID: 0000:af:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:07.099068: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:07.101261: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:07.103219: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcufft.so.10
+2021-02-01 18:01:07.104143: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcurand.so.10
+2021-02-01 18:01:07.105994: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusolver.so.10
+2021-02-01 18:01:07.107262: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusparse.so.10
+2021-02-01 18:01:07.110443: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:07.116551: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0, 1, 2, 3
+2021-02-01 18:01:07.116581: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:08.856625: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-01 18:01:08.856662: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      0 1 2 3 
+2021-02-01 18:01:08.856668: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 0:   N Y Y Y 
+2021-02-01 18:01:08.856671: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 1:   Y N Y Y 
+2021-02-01 18:01:08.856674: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 2:   Y Y N Y 
+2021-02-01 18:01:08.856677: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 3:   Y Y Y N 
+2021-02-01 18:01:08.860843: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:0 with 13027 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:18:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.862335: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:1 with 13027 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:3b:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.863588: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:2 with 13027 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:86:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.864847: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:3 with 13027 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:af:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.871828: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:18:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:08.872619: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 1 with properties: 
+pciBusID: 0000:3b:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:08.873396: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 2 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:08.874163: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 3 with properties: 
+pciBusID: 0000:af:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:08.874191: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:08.874214: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:08.874230: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcufft.so.10
+2021-02-01 18:01:08.874245: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcurand.so.10
+2021-02-01 18:01:08.874256: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusolver.so.10
+2021-02-01 18:01:08.874266: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusparse.so.10
+2021-02-01 18:01:08.874278: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:08.880273: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0, 1, 2, 3
+2021-02-01 18:01:08.880312: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-01 18:01:08.880318: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      0 1 2 3 
+2021-02-01 18:01:08.880322: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 0:   N Y Y Y 
+2021-02-01 18:01:08.880326: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 1:   Y N Y Y 
+2021-02-01 18:01:08.880329: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 2:   Y Y N Y 
+2021-02-01 18:01:08.880332: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 3:   Y Y Y N 
+2021-02-01 18:01:08.884186: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:0 with 13027 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:18:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.884963: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:1 with 13027 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:3b:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.885747: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:2 with 13027 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:86:00.0, compute capability: 7.0)
+2021-02-01 18:01:08.886533: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:3 with 13027 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:af:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.092094: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:18:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.092913: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 1 with properties: 
+pciBusID: 0000:3b:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.093688: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 2 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.094469: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 3 with properties: 
+pciBusID: 0000:af:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.094496: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:09.094515: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:09.094524: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcufft.so.10
+2021-02-01 18:01:09.094535: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcurand.so.10
+2021-02-01 18:01:09.094544: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusolver.so.10
+2021-02-01 18:01:09.094552: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusparse.so.10
+2021-02-01 18:01:09.094564: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:09.100557: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0, 1, 2, 3
+2021-02-01 18:01:09.100610: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-01 18:01:09.100616: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      0 1 2 3 
+2021-02-01 18:01:09.100620: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 0:   N Y Y Y 
+2021-02-01 18:01:09.100623: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 1:   Y N Y Y 
+2021-02-01 18:01:09.100627: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 2:   Y Y N Y 
+2021-02-01 18:01:09.100632: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 3:   Y Y Y N 
+2021-02-01 18:01:09.104516: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:0 with 13027 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:18:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.105300: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:1 with 13027 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:3b:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.106088: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:2 with 13027 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:86:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.106869: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/device:GPU:3 with 13027 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:af:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.108542: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:18:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.109335: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 1 with properties: 
+pciBusID: 0000:3b:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.110097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 2 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.110858: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 3 with properties: 
+pciBusID: 0000:af:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.110877: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:09.110891: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:09.110901: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcufft.so.10
+2021-02-01 18:01:09.110910: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcurand.so.10
+2021-02-01 18:01:09.110918: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusolver.so.10
+2021-02-01 18:01:09.110926: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusparse.so.10
+2021-02-01 18:01:09.110936: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:09.116916: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0, 1, 2, 3
+2021-02-01 18:01:09.118293: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:18:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.119071: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 1 with properties: 
+pciBusID: 0000:3b:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.119835: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 2 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.120594: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 3 with properties: 
+pciBusID: 0000:af:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-02-01 18:01:09.120610: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+2021-02-01 18:01:09.120621: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:09.120629: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcufft.so.10
+2021-02-01 18:01:09.120638: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcurand.so.10
+2021-02-01 18:01:09.120646: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusolver.so.10
+2021-02-01 18:01:09.120653: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcusparse.so.10
+2021-02-01 18:01:09.120661: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:09.126644: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0, 1, 2, 3
+2021-02-01 18:01:09.126681: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-01 18:01:09.126686: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      0 1 2 3 
+2021-02-01 18:01:09.126690: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 0:   N Y Y Y 
+2021-02-01 18:01:09.126693: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 1:   Y N Y Y 
+2021-02-01 18:01:09.126696: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 2:   Y Y N Y 
+2021-02-01 18:01:09.126699: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 3:   Y Y Y N 
+2021-02-01 18:01:09.130508: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 13027 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:18:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.131291: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 13027 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:3b:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.132057: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 13027 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:86:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.132825: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 13027 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:af:00.0, compute capability: 7.0)
+2021-02-01 18:01:09.375635: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudnn.so.7
+2021-02-01 18:01:10.264383: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcublas.so.10
+2021-02-01 18:01:47.153541: W tensorflow/core/common_runtime/bfc_allocator.cc:431] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.00GiB (rounded to 2147483648)requested by op Conv3DBackpropInputV2
+Current allocation summary follows.
+2021-02-01 18:01:47.153581: I tensorflow/core/common_runtime/bfc_allocator.cc:970] BFCAllocator dump for GPU_0_bfc
+2021-02-01 18:01:47.153607: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (256): 	Total Chunks: 62, Chunks in use: 62. 15.5KiB allocated for chunks. 15.5KiB in use in bin. 5.2KiB client-requested in use in bin.
+2021-02-01 18:01:47.153613: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (512): 	Total Chunks: 6, Chunks in use: 6. 3.0KiB allocated for chunks. 3.0KiB in use in bin. 3.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153619: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (1024): 	Total Chunks: 7, Chunks in use: 7. 7.2KiB allocated for chunks. 7.2KiB in use in bin. 7.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153625: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (2048): 	Total Chunks: 3, Chunks in use: 3. 6.0KiB allocated for chunks. 6.0KiB in use in bin. 6.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153631: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (4096): 	Total Chunks: 2, Chunks in use: 1. 13.2KiB allocated for chunks. 6.8KiB in use in bin. 6.8KiB client-requested in use in bin.
+2021-02-01 18:01:47.153641: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (8192): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153648: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (16384): 	Total Chunks: 6, Chunks in use: 6. 131.8KiB allocated for chunks. 131.8KiB in use in bin. 118.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153654: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (32768): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153660: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (65536): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153665: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (131072): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153670: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (262144): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153676: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (524288): 	Total Chunks: 1, Chunks in use: 1. 864.0KiB allocated for chunks. 864.0KiB in use in bin. 864.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153683: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (1048576): 	Total Chunks: 1, Chunks in use: 1. 1.64MiB allocated for chunks. 1.64MiB in use in bin. 864.0KiB client-requested in use in bin.
+2021-02-01 18:01:47.153688: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (2097152): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153696: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (4194304): 	Total Chunks: 2, Chunks in use: 1. 10.97MiB allocated for chunks. 6.75MiB in use in bin. 6.75MiB client-requested in use in bin.
+2021-02-01 18:01:47.153703: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (8388608): 	Total Chunks: 5, Chunks in use: 3. 63.26MiB allocated for chunks. 38.32MiB in use in bin. 35.00MiB client-requested in use in bin.
+2021-02-01 18:01:47.153708: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (16777216): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153713: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (33554432): 	Total Chunks: 2, Chunks in use: 2. 64.00MiB allocated for chunks. 64.00MiB in use in bin. 64.00MiB client-requested in use in bin.
+2021-02-01 18:01:47.153719: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (67108864): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153725: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (134217728): 	Total Chunks: 2, Chunks in use: 0. 434.50MiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-01 18:01:47.153732: I tensorflow/core/common_runtime/bfc_allocator.cc:977] Bin (268435456): 	Total Chunks: 14, Chunks in use: 14. 12.16GiB allocated for chunks. 12.16GiB in use in bin. 12.09GiB client-requested in use in bin.
+2021-02-01 18:01:47.153737: I tensorflow/core/common_runtime/bfc_allocator.cc:993] Bin for 2.00GiB was 256.00MiB, Chunk State: 
+2021-02-01 18:01:47.153742: I tensorflow/core/common_runtime/bfc_allocator.cc:1006] Next region of size 13660281856
+2021-02-01 18:01:47.153748: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000000 of size 1280 next 1
+2021-02-01 18:01:47.153753: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000500 of size 256 next 10
+2021-02-01 18:01:47.153758: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000600 of size 256 next 12
+2021-02-01 18:01:47.153762: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000700 of size 256 next 6
+2021-02-01 18:01:47.153766: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000800 of size 256 next 16
+2021-02-01 18:01:47.153771: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000900 of size 1024 next 11
+2021-02-01 18:01:47.153775: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000d00 of size 256 next 17
+2021-02-01 18:01:47.153779: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000e00 of size 256 next 18
+2021-02-01 18:01:47.153783: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4000f00 of size 2048 next 13
+2021-02-01 18:01:47.153788: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001700 of size 256 next 22
+2021-02-01 18:01:47.153792: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001800 of size 256 next 23
+2021-02-01 18:01:47.153796: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001900 of size 512 next 21
+2021-02-01 18:01:47.153801: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001b00 of size 256 next 29
+2021-02-01 18:01:47.153804: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001c00 of size 256 next 34
+2021-02-01 18:01:47.153808: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001d00 of size 512 next 26
+2021-02-01 18:01:47.153813: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4001f00 of size 256 next 27
+2021-02-01 18:01:47.153817: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002000 of size 256 next 28
+2021-02-01 18:01:47.153821: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002100 of size 256 next 38
+2021-02-01 18:01:47.153824: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002200 of size 256 next 43
+2021-02-01 18:01:47.153828: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002300 of size 256 next 45
+2021-02-01 18:01:47.153832: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002400 of size 256 next 46
+2021-02-01 18:01:47.153836: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002500 of size 256 next 30
+2021-02-01 18:01:47.153841: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002600 of size 1024 next 31
+2021-02-01 18:01:47.153844: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002a00 of size 1024 next 33
+2021-02-01 18:01:47.153849: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4002e00 of size 1024 next 32
+2021-02-01 18:01:47.153854: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003200 of size 2048 next 35
+2021-02-01 18:01:47.153858: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003a00 of size 512 next 49
+2021-02-01 18:01:47.153861: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003c00 of size 256 next 51
+2021-02-01 18:01:47.153866: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003d00 of size 256 next 52
+2021-02-01 18:01:47.153870: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003e00 of size 256 next 41
+2021-02-01 18:01:47.153874: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4003f00 of size 1024 next 42
+2021-02-01 18:01:47.153878: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004300 of size 1024 next 44
+2021-02-01 18:01:47.153882: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004700 of size 512 next 55
+2021-02-01 18:01:47.153885: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004900 of size 256 next 57
+2021-02-01 18:01:47.153890: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004a00 of size 256 next 56
+2021-02-01 18:01:47.153893: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004b00 of size 256 next 61
+2021-02-01 18:01:47.153897: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004c00 of size 256 next 62
+2021-02-01 18:01:47.153901: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004d00 of size 256 next 60
+2021-02-01 18:01:47.153905: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004e00 of size 256 next 7
+2021-02-01 18:01:47.153908: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4004f00 of size 256 next 8
+2021-02-01 18:01:47.153918: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005000 of size 256 next 9
+2021-02-01 18:01:47.153921: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005100 of size 256 next 65
+2021-02-01 18:01:47.153926: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005200 of size 256 next 66
+2021-02-01 18:01:47.153930: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005300 of size 256 next 67
+2021-02-01 18:01:47.153934: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005400 of size 256 next 68
+2021-02-01 18:01:47.153938: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005500 of size 256 next 72
+2021-02-01 18:01:47.153942: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005600 of size 256 next 75
+2021-02-01 18:01:47.153945: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005700 of size 256 next 71
+2021-02-01 18:01:47.153948: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005800 of size 256 next 48
+2021-02-01 18:01:47.153953: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4005900 of size 2048 next 47
+2021-02-01 18:01:47.153957: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006100 of size 256 next 79
+2021-02-01 18:01:47.153960: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006200 of size 256 next 76
+2021-02-01 18:01:47.153964: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006300 of size 256 next 73
+2021-02-01 18:01:47.153968: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006400 of size 256 next 85
+2021-02-01 18:01:47.153972: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006500 of size 256 next 86
+2021-02-01 18:01:47.153976: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006600 of size 256 next 87
+2021-02-01 18:01:47.153980: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006700 of size 256 next 88
+2021-02-01 18:01:47.153983: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006800 of size 256 next 89
+2021-02-01 18:01:47.153988: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006900 of size 256 next 90
+2021-02-01 18:01:47.153992: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006a00 of size 256 next 91
+2021-02-01 18:01:47.153996: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006b00 of size 256 next 92
+2021-02-01 18:01:47.153999: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006c00 of size 256 next 93
+2021-02-01 18:01:47.154012: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006d00 of size 256 next 94
+2021-02-01 18:01:47.154015: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006e00 of size 256 next 95
+2021-02-01 18:01:47.154019: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4006f00 of size 256 next 96
+2021-02-01 18:01:47.154023: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007000 of size 256 next 97
+2021-02-01 18:01:47.154028: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007100 of size 256 next 98
+2021-02-01 18:01:47.154032: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007200 of size 256 next 99
+2021-02-01 18:01:47.154036: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007300 of size 256 next 100
+2021-02-01 18:01:47.154040: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007400 of size 256 next 101
+2021-02-01 18:01:47.154045: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007500 of size 256 next 102
+2021-02-01 18:01:47.154049: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007600 of size 256 next 103
+2021-02-01 18:01:47.154053: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007700 of size 256 next 104
+2021-02-01 18:01:47.154057: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007800 of size 256 next 105
+2021-02-01 18:01:47.154061: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007900 of size 512 next 106
+2021-02-01 18:01:47.154065: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4007b00 of size 512 next 107
+2021-02-01 18:01:47.154069: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154df4007d00 of size 6656 next 64
+2021-02-01 18:01:47.154073: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4009700 of size 6912 next 63
+2021-02-01 18:01:47.154078: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df400b200 of size 30464 next 14
+2021-02-01 18:01:47.154082: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4012900 of size 27648 next 15
+2021-02-01 18:01:47.154087: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4019500 of size 27648 next 36
+2021-02-01 18:01:47.154091: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4020100 of size 11869952 next 2
+2021-02-01 18:01:47.154095: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df4b72000 of size 256 next 3
+2021-02-01 18:01:47.154099: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154df4b72100 of size 12000000 next 4
+2021-02-01 18:01:47.154104: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df56e3c00 of size 256 next 5
+2021-02-01 18:01:47.154108: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df56e3d00 of size 16384 next 83
+2021-02-01 18:01:47.154112: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df56e7d00 of size 16384 next 84
+2021-02-01 18:01:47.154116: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df56ebd00 of size 16384 next 108
+2021-02-01 18:01:47.154121: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df56efd00 of size 1720320 next 59
+2021-02-01 18:01:47.154125: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df5893d00 of size 884736 next 58
+2021-02-01 18:01:47.154129: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154df596bd00 of size 4423680 next 53
+2021-02-01 18:01:47.154134: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df5da3d00 of size 7077888 next 54
+2021-02-01 18:01:47.154138: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154df6463d00 of size 14155776 next 20
+2021-02-01 18:01:47.154143: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df71e3d00 of size 14155776 next 19
+2021-02-01 18:01:47.154147: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df7f63d00 of size 14155776 next 37
+2021-02-01 18:01:47.154152: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154df8ce3d00 of size 1073741824 next 70
+2021-02-01 18:01:47.154156: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154e38ce3d00 of size 268435456 next 109
+2021-02-01 18:01:47.154160: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154e48ce3d00 of size 536870912 next 110
+2021-02-01 18:01:47.154164: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154e68ce3d00 of size 254279680 next 25
+2021-02-01 18:01:47.154168: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154e77f63d00 of size 1073741824 next 24
+2021-02-01 18:01:47.154172: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154eb7f63d00 of size 33554432 next 80
+2021-02-01 18:01:47.154176: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154eb9f63d00 of size 33554432 next 78
+2021-02-01 18:01:47.154180: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154ebbf63d00 of size 268435456 next 77
+2021-02-01 18:01:47.154184: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154ecbf63d00 of size 268435456 next 81
+2021-02-01 18:01:47.154188: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154edbf63d00 of size 268435456 next 82
+2021-02-01 18:01:47.154192: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] Free  at 154eebf63d00 of size 201326592 next 40
+2021-02-01 18:01:47.154196: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154ef7f63d00 of size 1073741824 next 39
+2021-02-01 18:01:47.154200: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154f37f63d00 of size 1073741824 next 50
+2021-02-01 18:01:47.154204: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154f77f63d00 of size 1073741824 next 74
+2021-02-01 18:01:47.154208: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154fb7f63d00 of size 1073741824 next 69
+2021-02-01 18:01:47.154212: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 154ff7f63d00 of size 2147483648 next 111
+2021-02-01 18:01:47.154217: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 155077f63d00 of size 536870912 next 112
+2021-02-01 18:01:47.154221: I tensorflow/core/common_runtime/bfc_allocator.cc:1026] InUse at 155097f63d00 of size 2319523584 next 18446744073709551615
+2021-02-01 18:01:47.154226: I tensorflow/core/common_runtime/bfc_allocator.cc:1031]      Summary of in-use Chunks by size: 
+2021-02-01 18:01:47.154231: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 62 Chunks of size 256 totalling 15.5KiB
+2021-02-01 18:01:47.154236: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 6 Chunks of size 512 totalling 3.0KiB
+2021-02-01 18:01:47.154248: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 6 Chunks of size 1024 totalling 6.0KiB
+2021-02-01 18:01:47.154253: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 1280 totalling 1.2KiB
+2021-02-01 18:01:47.154258: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 3 Chunks of size 2048 totalling 6.0KiB
+2021-02-01 18:01:47.154263: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 6912 totalling 6.8KiB
+2021-02-01 18:01:47.154268: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 3 Chunks of size 16384 totalling 48.0KiB
+2021-02-01 18:01:47.154273: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 2 Chunks of size 27648 totalling 54.0KiB
+2021-02-01 18:01:47.154277: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 30464 totalling 29.8KiB
+2021-02-01 18:01:47.154282: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 884736 totalling 864.0KiB
+2021-02-01 18:01:47.154287: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 1720320 totalling 1.64MiB
+2021-02-01 18:01:47.154292: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 7077888 totalling 6.75MiB
+2021-02-01 18:01:47.154297: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 11869952 totalling 11.32MiB
+2021-02-01 18:01:47.154302: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 2 Chunks of size 14155776 totalling 27.00MiB
+2021-02-01 18:01:47.154307: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 2 Chunks of size 33554432 totalling 64.00MiB
+2021-02-01 18:01:47.154312: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 4 Chunks of size 268435456 totalling 1.00GiB
+2021-02-01 18:01:47.154316: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 2 Chunks of size 536870912 totalling 1.00GiB
+2021-02-01 18:01:47.154321: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 6 Chunks of size 1073741824 totalling 6.00GiB
+2021-02-01 18:01:47.154326: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 2147483648 totalling 2.00GiB
+2021-02-01 18:01:47.154331: I tensorflow/core/common_runtime/bfc_allocator.cc:1034] 1 Chunks of size 2319523584 totalling 2.16GiB
+2021-02-01 18:01:47.154336: I tensorflow/core/common_runtime/bfc_allocator.cc:1038] Sum Total of in-use chunks: 12.27GiB
+2021-02-01 18:01:47.154341: I tensorflow/core/common_runtime/bfc_allocator.cc:1040] total_region_allocated_bytes_: 13660281856 memory_limit_: 13660281920 available bytes: 64 curr_region_allocation_bytes_: 27320564224
+2021-02-01 18:01:47.154348: I tensorflow/core/common_runtime/bfc_allocator.cc:1046] Stats: 
+Limit:                     13660281920
+InUse:                     13174089472
+MaxInUse:                  13174089472
+NumAllocs:                         695
+MaxAllocSize:               2319523584
+Reserved:                            0
+PeakReserved:                        0
+LargestFreeBlock:                    0
+
+2021-02-01 18:01:47.154361: W tensorflow/core/common_runtime/bfc_allocator.cc:439] ***************_************************************************************************************
+2021-02-01 18:01:47.154376: W tensorflow/core/framework/op_kernel.cc:1767] OP_REQUIRES failed at conv_grad_ops_3d.cc:1551 : Resource exhausted: OOM when allocating tensor with shape[32,64,64,64,64] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+Traceback (most recent call last):
+  File "/data/aglinska/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/jupyter_core/application.py", line 270, in launch_instance
+    return super(JupyterApp, cls).launch_instance(argv=argv, **kwargs)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/traitlets/config/application.py", line 845, in launch_instance
+    app.start()
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/nbconvertapp.py", line 350, in start
+    self.convert_notebooks()
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/nbconvertapp.py", line 524, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/nbconvertapp.py", line 489, in convert_single_notebook
+    output, resources = self.export_single_notebook(notebook_filename, resources, input_buffer=input_buffer)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/nbconvertapp.py", line 418, in export_single_notebook
+    output, resources = self.exporter.from_filename(notebook_filename, resources=resources)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/exporters/exporter.py", line 181, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/exporters/exporter.py", line 199, in from_file
+    return self.from_notebook_node(nbformat.read(file_stream, as_version=4), resources=resources, **kw)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/exporters/notebook.py", line 32, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/exporters/exporter.py", line 143, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/exporters/exporter.py", line 318, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb, resources)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/preprocessors/execute.py", line 79, in preprocess
+    self.execute()
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/data/aglinska/anaconda3/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 540, in async_execute
+    await self.async_execute_cell(
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/preprocessors/execute.py", line 123, in async_execute_cell
+    cell, resources = self.preprocess_cell(cell, self.resources, cell_index)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbconvert/preprocessors/execute.py", line 146, in preprocess_cell
+    cell = run_sync(NotebookClient.async_execute_cell)(self, cell, index, store_history=self.store_history)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nest_asyncio.py", line 96, in run_until_complete
+    return f.result()
+  File "/data/aglinska/anaconda3/lib/python3.8/asyncio/futures.py", line 178, in result
+    raise self._exception
+  File "/data/aglinska/anaconda3/lib/python3.8/asyncio/tasks.py", line 280, in __step
+    result = coro.send(None)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/data/aglinska/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+for i in tqdm(range(1,int(1e6))):
+    
+    #asd_idx,td_idx = get_batch_idx(df,batch_size = batch_size)
+    #DX_batch = np.take(ABIDE_data, indices=asd_idx, axis=0)
+    #TD_batch = np.take(ABIDE_data, indices=td_idx, axis=0)
+    DX_batch = DX_subs[np.random.randint(low=0,high=DX_subs.shape[0],size=batch_size),:,:,:];
+    TD_batch = TD_subs[np.random.randint(low=0,high=TD_subs.shape[0],size=batch_size),:,:,:];
+    hist = cvae.train_on_batch([DX_batch,TD_batch]); # Proper 
+    #hist = cvae.train_on_batch([TD_batch,DX_batch]); # Flipped
+    
+    assert not np.isnan(hist),'loss is NaN - you f**cked up'
+    
+    im,im1,ss = net_query();
+    
+    loss.append(hist);
+    
+    if np.mod(i,250)==0:
+        plot_trainProgress(loss,im,im1);
+        pickle.dump(loss,open(fn+'_loss.pickle','wb'))
+        plot_four(0)
+        plot_four(1)
+        bg_space,sl_space = get_spaces()
+        cscatter([bg_space,sl_space],c=df['DxGroup'].values)
+        
+    if np.mod(i,101)==0:
+        cvae.save_weights(fn)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mResourceExhaustedError[0m                    Traceback (most recent call last)
+[0;32m<ipython-input-1-43f5c3d9d9cd>[0m in [0;36m<module>[0;34m[0m
+[1;32m      6[0m     [0mDX_batch[0m [0;34m=[0m [0mDX_subs[0m[0;34m[[0m[0mnp[0m[0;34m.[0m[0mrandom[0m[0;34m.[0m[0mrandint[0m[0;34m([0m[0mlow[0m[0;34m=[0m[0;36m0[0m[0;34m,[0m[0mhigh[0m[0;34m=[0m[0mDX_subs[0m[0;34m.[0m[0mshape[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m,[0m[0msize[0m[0;34m=[0m[0mbatch_size[0m[0;34m)[0m[0;34m,[0m[0;34m:[0m[0;34m,[0m[0;34m:[0m[0;34m,[0m[0;34m:[0m[0;34m][0m[0;34m;[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m     [0mTD_batch[0m [0;34m=[0m [0mTD_subs[0m[0;34m[[0m[0mnp[0m[0;34m.[0m[0mrandom[0m[0;34m.[0m[0mrandint[0m[0;34m([0m[0mlow[0m[0;34m=[0m[0;36m0[0m[0;34m,[0m[0mhigh[0m[0;34m=[0m[0mTD_subs[0m[0;34m.[0m[0mshape[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m,[0m[0msize[0m[0;34m=[0m[0mbatch_size[0m[0;34m)[0m[0;34m,[0m[0;34m:[0m[0;34m,[0m[0;34m:[0m[0;34m,[0m[0;34m:[0m[0;34m][0m[0;34m;[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 8[0;31m     [0mhist[0m [0;34m=[0m [0mcvae[0m[0;34m.[0m[0mtrain_on_batch[0m[0;34m([0m[0;34m[[0m[0mDX_batch[0m[0;34m,[0m[0mTD_batch[0m[0;34m][0m[0;34m)[0m[0;34m;[0m [0;31m# Proper[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      9[0m     [0;31m#hist = cvae.train_on_batch([TD_batch,DX_batch]); # Flipped[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     10[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py[0m in [0;36mtrain_on_batch[0;34m(self, x, y, sample_weight, class_weight, reset_metrics, return_dict)[0m
+[1;32m   1693[0m                                                     class_weight)
+[1;32m   1694[0m       [0mtrain_function[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mmake_train_function[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1695[0;31m       [0mlogs[0m [0;34m=[0m [0mtrain_function[0m[0;34m([0m[0miterator[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1696[0m [0;34m[0m[0m
+[1;32m   1697[0m     [0;32mif[0m [0mreset_metrics[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py[0m in [0;36mtrain_function[0;34m(iterator)[0m
+[1;32m    804[0m       [0;32mdef[0m [0mtrain_function[0m[0;34m([0m[0miterator[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    805[0m         [0;34m"""Runs a training execution with one step."""[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 806[0;31m         [0;32mreturn[0m [0mstep_function[0m[0;34m([0m[0mself[0m[0;34m,[0m [0miterator[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    807[0m [0;34m[0m[0m
+[1;32m    808[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py[0m in [0;36mstep_function[0;34m(model, iterator)[0m
+[1;32m    794[0m [0;34m[0m[0m
+[1;32m    795[0m       [0mdata[0m [0;34m=[0m [0mnext[0m[0;34m([0m[0miterator[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 796[0;31m       [0moutputs[0m [0;34m=[0m [0mmodel[0m[0;34m.[0m[0mdistribute_strategy[0m[0;34m.[0m[0mrun[0m[0;34m([0m[0mrun_step[0m[0;34m,[0m [0margs[0m[0;34m=[0m[0;34m([0m[0mdata[0m[0;34m,[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    797[0m       outputs = reduce_per_replica(
+[1;32m    798[0m           outputs, self.distribute_strategy, reduction='first')
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py[0m in [0;36mrun[0;34m(***failed resolving arguments***)[0m
+[1;32m   1209[0m       fn = autograph.tf_convert(
+[1;32m   1210[0m           fn, autograph_ctx.control_status_ctx(), convert_by_default=False)
+[0;32m-> 1211[0;31m       [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_extended[0m[0;34m.[0m[0mcall_for_each_replica[0m[0;34m([0m[0mfn[0m[0;34m,[0m [0margs[0m[0;34m=[0m[0margs[0m[0;34m,[0m [0mkwargs[0m[0;34m=[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1212[0m [0;34m[0m[0m
+[1;32m   1213[0m   [0;31m# TODO(b/151224785): Remove deprecated alias.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py[0m in [0;36mcall_for_each_replica[0;34m(self, fn, args, kwargs)[0m
+[1;32m   2583[0m       [0mkwargs[0m [0;34m=[0m [0;34m{[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2584[0m     [0;32mwith[0m [0mself[0m[0;34m.[0m[0m_container_strategy[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mscope[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2585[0;31m       [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_call_for_each_replica[0m[0;34m([0m[0mfn[0m[0;34m,[0m [0margs[0m[0;34m,[0m [0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2586[0m [0;34m[0m[0m
+[1;32m   2587[0m   [0;32mdef[0m [0m_call_for_each_replica[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mfn[0m[0;34m,[0m [0margs[0m[0;34m,[0m [0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py[0m in [0;36m_call_for_each_replica[0;34m(self, fn, args, kwargs)[0m
+[1;32m   2943[0m         [0mself[0m[0;34m.[0m[0m_container_strategy[0m[0;34m([0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2944[0m         replica_id_in_sync_group=constant_op.constant(0, dtypes.int32)):
+[0;32m-> 2945[0;31m       [0;32mreturn[0m [0mfn[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2946[0m [0;34m[0m[0m
+[1;32m   2947[0m   [0;32mdef[0m [0m_reduce_to[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mreduce_op[0m[0;34m,[0m [0mvalue[0m[0;34m,[0m [0mdestinations[0m[0;34m,[0m [0mexperimental_hints[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/autograph/impl/api.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    273[0m   [0;32mdef[0m [0mwrapper[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    274[0m     [0;32mwith[0m [0mag_ctx[0m[0;34m.[0m[0mControlStatusCtx[0m[0;34m([0m[0mstatus[0m[0;34m=[0m[0mag_ctx[0m[0;34m.[0m[0mStatus[0m[0;34m.[0m[0mUNSPECIFIED[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 275[0;31m       [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    276[0m [0;34m[0m[0m
+[1;32m    277[0m   [0;32mif[0m [0minspect[0m[0;34m.[0m[0misfunction[0m[0;34m([0m[0mfunc[0m[0;34m)[0m [0;32mor[0m [0minspect[0m[0;34m.[0m[0mismethod[0m[0;34m([0m[0mfunc[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py[0m in [0;36mrun_step[0;34m(data)[0m
+[1;32m    787[0m [0;34m[0m[0m
+[1;32m    788[0m       [0;32mdef[0m [0mrun_step[0m[0;34m([0m[0mdata[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 789[0;31m         [0moutputs[0m [0;34m=[0m [0mmodel[0m[0;34m.[0m[0mtrain_step[0m[0;34m([0m[0mdata[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    790[0m         [0;31m# Ensure counter is updated only if `train_step` succeeds.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    791[0m         [0;32mwith[0m [0mops[0m[0;34m.[0m[0mcontrol_dependencies[0m[0;34m([0m[0m_minimum_control_deps[0m[0;34m([0m[0moutputs[0m[0;34m)[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py[0m in [0;36mtrain_step[0;34m(self, data)[0m
+[1;32m    745[0m [0;34m[0m[0m
+[1;32m    746[0m     [0;32mwith[0m [0mbackprop[0m[0;34m.[0m[0mGradientTape[0m[0;34m([0m[0;34m)[0m [0;32mas[0m [0mtape[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 747[0;31m       [0my_pred[0m [0;34m=[0m [0mself[0m[0;34m([0m[0mx[0m[0;34m,[0m [0mtraining[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    748[0m       loss = self.compiled_loss(
+[1;32m    749[0m           y, y_pred, sample_weight, regularization_losses=self.losses)
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    983[0m [0;34m[0m[0m
+[1;32m    984[0m         [0;32mwith[0m [0mops[0m[0;34m.[0m[0menable_auto_cast_variables[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_compute_dtype_object[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 985[0;31m           [0moutputs[0m [0;34m=[0m [0mcall_fn[0m[0;34m([0m[0minputs[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    986[0m [0;34m[0m[0m
+[1;32m    987[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_activity_regularizer[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/functional.py[0m in [0;36mcall[0;34m(self, inputs, training, mask)[0m
+[1;32m    383[0m         [0ma[0m [0mlist[0m [0mof[0m [0mtensors[0m [0;32mif[0m [0mthere[0m [0mare[0m [0mmore[0m [0mthan[0m [0mone[0m [0moutputs[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    384[0m     """
+[0;32m--> 385[0;31m     return self._run_internal_graph(
+[0m[1;32m    386[0m         inputs, training=training, mask=mask)
+[1;32m    387[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/functional.py[0m in [0;36m_run_internal_graph[0;34m(self, inputs, training, mask)[0m
+[1;32m    506[0m [0;34m[0m[0m
+[1;32m    507[0m         [0margs[0m[0;34m,[0m [0mkwargs[0m [0;34m=[0m [0mnode[0m[0;34m.[0m[0mmap_arguments[0m[0;34m([0m[0mtensor_dict[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 508[0;31m         [0moutputs[0m [0;34m=[0m [0mnode[0m[0;34m.[0m[0mlayer[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    509[0m [0;34m[0m[0m
+[1;32m    510[0m         [0;31m# Update tensor_dict.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    983[0m [0;34m[0m[0m
+[1;32m    984[0m         [0;32mwith[0m [0mops[0m[0;34m.[0m[0menable_auto_cast_variables[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_compute_dtype_object[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 985[0;31m           [0moutputs[0m [0;34m=[0m [0mcall_fn[0m[0;34m([0m[0minputs[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    986[0m [0;34m[0m[0m
+[1;32m    987[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_activity_regularizer[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/functional.py[0m in [0;36mcall[0;34m(self, inputs, training, mask)[0m
+[1;32m    383[0m         [0ma[0m [0mlist[0m [0mof[0m [0mtensors[0m [0;32mif[0m [0mthere[0m [0mare[0m [0mmore[0m [0mthan[0m [0mone[0m [0moutputs[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    384[0m     """
+[0;32m--> 385[0;31m     return self._run_internal_graph(
+[0m[1;32m    386[0m         inputs, training=training, mask=mask)
+[1;32m    387[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/functional.py[0m in [0;36m_run_internal_graph[0;34m(self, inputs, training, mask)[0m
+[1;32m    506[0m [0;34m[0m[0m
+[1;32m    507[0m         [0margs[0m[0;34m,[0m [0mkwargs[0m [0;34m=[0m [0mnode[0m[0;34m.[0m[0mmap_arguments[0m[0;34m([0m[0mtensor_dict[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 508[0;31m         [0moutputs[0m [0;34m=[0m [0mnode[0m[0;34m.[0m[0mlayer[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    509[0m [0;34m[0m[0m
+[1;32m    510[0m         [0;31m# Update tensor_dict.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    983[0m [0;34m[0m[0m
+[1;32m    984[0m         [0;32mwith[0m [0mops[0m[0;34m.[0m[0menable_auto_cast_variables[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_compute_dtype_object[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 985[0;31m           [0moutputs[0m [0;34m=[0m [0mcall_fn[0m[0;34m([0m[0minputs[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    986[0m [0;34m[0m[0m
+[1;32m    987[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_activity_regularizer[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/layers/convolutional.py[0m in [0;36mcall[0;34m(self, inputs)[0m
+[1;32m   1593[0m [0;34m[0m[0m
+[1;32m   1594[0m     [0moutput_shape_tensor[0m [0;34m=[0m [0marray_ops[0m[0;34m.[0m[0mstack[0m[0;34m([0m[0moutput_shape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1595[0;31m     outputs = nn.conv3d_transpose(
+[0m[1;32m   1596[0m         [0minputs[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1597[0m         [0mself[0m[0;34m.[0m[0mkernel[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/util/dispatch.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    199[0m     [0;34m"""Call target, and fall back on dispatchers if there is a TypeError."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    200[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 201[0;31m       [0;32mreturn[0m [0mtarget[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    202[0m     [0;32mexcept[0m [0;34m([0m[0mTypeError[0m[0;34m,[0m [0mValueError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    203[0m       [0;31m# Note: convert_to_eager_tensor currently raises a ValueError, not a[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/nn_ops.py[0m in [0;36mconv3d_transpose[0;34m(value, filter, output_shape, strides, padding, data_format, name, input, filters, dilations)[0m
+[1;32m   3115[0m   [0mfilter[0m [0;34m=[0m [0mdeprecated_argument_lookup[0m[0;34m([0m[0;34m"filters"[0m[0;34m,[0m [0mfilters[0m[0;34m,[0m [0;34m"filter"[0m[0;34m,[0m [0mfilter[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3116[0m   [0mvalue[0m [0;34m=[0m [0mdeprecated_argument_lookup[0m[0;34m([0m[0;34m"input"[0m[0;34m,[0m [0minput[0m[0;34m,[0m [0;34m"value"[0m[0;34m,[0m [0mvalue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 3117[0;31m   return conv3d_transpose_v2(
+[0m[1;32m   3118[0m       [0mvalue[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3119[0m       [0mfilter[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/util/dispatch.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    199[0m     [0;34m"""Call target, and fall back on dispatchers if there is a TypeError."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    200[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 201[0;31m       [0;32mreturn[0m [0mtarget[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    202[0m     [0;32mexcept[0m [0;34m([0m[0mTypeError[0m[0;34m,[0m [0mValueError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    203[0m       [0;31m# Note: convert_to_eager_tensor currently raises a ValueError, not a[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/nn_ops.py[0m in [0;36mconv3d_transpose_v2[0;34m(input, filters, output_shape, strides, padding, data_format, dilations, name)[0m
+[1;32m   3188[0m     [0mdilations[0m [0;34m=[0m [0m_get_sequence[0m[0;34m([0m[0mdilations[0m[0;34m,[0m [0;36m3[0m[0;34m,[0m [0mchannel_index[0m[0;34m,[0m [0;34m"dilations"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3189[0m [0;34m[0m[0m
+[0;32m-> 3190[0;31m     return gen_nn_ops.conv3d_backprop_input_v2(
+[0m[1;32m   3191[0m         [0minput_sizes[0m[0;34m=[0m[0moutput_shape[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3192[0m         [0mfilter[0m[0;34m=[0m[0mfilters[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/gen_nn_ops.py[0m in [0;36mconv3d_backprop_input_v2[0;34m(input_sizes, filter, out_backprop, strides, padding, data_format, dilations, name)[0m
+[1;32m   1893[0m       [0;32mreturn[0m [0m_result[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1894[0m     [0;32mexcept[0m [0m_core[0m[0;34m.[0m[0m_NotOkStatusException[0m [0;32mas[0m [0me[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1895[0;31m       [0m_ops[0m[0;34m.[0m[0mraise_from_not_ok_status[0m[0;34m([0m[0me[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1896[0m     [0;32mexcept[0m [0m_core[0m[0;34m.[0m[0m_FallbackException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1897[0m       [0;32mpass[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/ops.py[0m in [0;36mraise_from_not_ok_status[0;34m(e, name)[0m
+[1;32m   6841[0m   [0mmessage[0m [0;34m=[0m [0me[0m[0;34m.[0m[0mmessage[0m [0;34m+[0m [0;34m([0m[0;34m" name: "[0m [0;34m+[0m [0mname[0m [0;32mif[0m [0mname[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m [0;32melse[0m [0;34m""[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6842[0m   [0;31m# pylint: disable=protected-access[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 6843[0;31m   [0msix[0m[0;34m.[0m[0mraise_from[0m[0;34m([0m[0mcore[0m[0;34m.[0m[0m_status_to_exception[0m[0;34m([0m[0me[0m[0;34m.[0m[0mcode[0m[0;34m,[0m [0mmessage[0m[0;34m)[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   6844[0m   [0;31m# pylint: enable=protected-access[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6845[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/six.py[0m in [0;36mraise_from[0;34m(value, from_value)[0m
+
+[0;31mResourceExhaustedError[0m: OOM when allocating tensor with shape[32,64,64,64,64] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc [Op:Conv3DBackpropInputV2]
+ResourceExhaustedError: OOM when allocating tensor with shape[32,64,64,64,64] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc [Op:Conv3DBackpropInputV2]
+
+]0;aglinska@l001:~/BC-MRI-AE/Colab Notebooks(base) [aglinska@g002 Colab Notebooks]$ exit
+exit
+
+Script done on 2021-02-01 18:02:01-05:00

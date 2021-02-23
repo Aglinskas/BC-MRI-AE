@@ -4,6 +4,14 @@ from matplotlib import pyplot as plt
 import umap
 from IPython import display
 import time
+import pandas as pd
+from sklearn.metrics import silhouette_score
+from scipy.spatial.distance import pdist
+from scipy.spatial.distance import squareform
+import seaborn as sns
+
+
+default_keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','Sex','ScannerID','ScanSiteID','FIQ']
 
 def get_weights(fdir=None):
     if not fdir:
@@ -162,6 +170,10 @@ def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
     plt.show()
     
     
+    
+    
+    
+    
 def get_spaces(ABIDE_data,z_encoder,s_encoder,w=2):
     
     encs = [z_encoder.predict, s_encoder.predict]
@@ -204,30 +216,54 @@ def plot_sweep(ABIDE_data,z_encoder,s_encoder,cvae_decoder,wspace='z',l=5,w=2):
             plt.xticks([]);plt.yticks([]);
     plt.tight_layout(pad=0, w_pad=0, h_pad=0)
     
-def plot_four(DX_batch,TD_batch,z_encoder,s_encoder,cvae_decoder,cvae,idx=0):
+def plot_four(DX_batch,TD_batch,z_encoder,s_encoder,cvae_decoder,cvae,idx=0,v=2,s=11,k=40,axis='ax'):
     
     #im_in = [DX_batch,TD_batch][np.random.choice([0,1])]
     im_in = [DX_batch,TD_batch][idx]
     _zeros = np.zeros(s_encoder(im_in)[2].shape)
 
-    v = 2
+    #v = 2
     cvae_sal_vec = np.hstack((_zeros,s_encoder(im_in)[v]))
     cvae_bg_vec = np.hstack((z_encoder(im_in)[v],_zeros))
+    
+    if idx==1:
+        cvae_full_vec = np.hstack((z_encoder(im_in)[v],s_encoder(im_in)[v]))
+    elif idx==0:
+        cvae_full_vec = cvae_bg_vec
+    
+    #cvae_sal_vec = np.hstack((s_encoder(im_in)[v],_zeros))
+    #cvae_bg_vec = np.hstack((_zeros,z_encoder(im_in)[v]))
+    
+    if axis=='ax':
+        plot_im_input = im_in[s,:,:,k]
+        plot_im_sal = cvae_decoder(cvae_sal_vec)[s,:,:,k,0]
+        plot_im_bg = cvae_decoder(cvae_bg_vec)[s,:,:,k,0]
+        #plot_im_recon = cvae.predict([DX_batch,TD_batch])[idx][s,:,:,k,0]
+        plot_im_recon = cvae_decoder(cvae_full_vec)[s,:,:,k,0]
+    elif axis=='sag':
+        plot_im_input = im_in[s,k,:,:]
+        plot_im_sal = cvae_decoder(cvae_sal_vec)[s,k,:,:,0]
+        plot_im_bg = cvae_decoder(cvae_bg_vec)[s,k,:,:,0]
+        #plot_im_recon = cvae.predict([DX_batch,TD_batch])[idx][s,k,:,:,0]
+        plot_im_recon = cvae_decoder(cvae_full_vec)[s,k,:,:,0]
+    elif axis=='cor':
+        plot_im_input = im_in[s,:,k,:]
+        plot_im_sal = cvae_decoder(cvae_sal_vec)[s,:,k,:,0]
+        plot_im_bg = cvae_decoder(cvae_bg_vec)[s,:,k,:,0]
+        #plot_im_recon = cvae.predict([DX_batch,TD_batch])[idx][s,:,k,:,0]
+        plot_im_recon = cvae_decoder(cvae_full_vec)[s,:,k,:,0]
+        
+
         
     plt.figure(figsize=np.array((4*4,4))*.5)
-    s = 11;k=32
     plt.subplot(1,4,1)
-    plt.imshow(im_in[s,:,:,k]);plt.xticks([]);plt.yticks([]);plt.title('input')
-
+    plt.imshow(plot_im_input);plt.xticks([]);plt.yticks([]);plt.title('input')
     plt.subplot(1,4,2)
-    #plt.imshow(cvae_decoder(cvae_full_vec)[s,:,:,k,0]);plt.xticks([]);plt.yticks([]);plt.title('reconstruction')
-    plt.imshow(cvae.predict([DX_batch,TD_batch])[idx][s,:,:,k,0]);plt.xticks([]);plt.yticks([]);plt.title('reconstruction')
-
+    plt.imshow(plot_im_recon);plt.xticks([]);plt.yticks([]);plt.title('reconstruction')
     plt.subplot(1,4,3)
-    plt.imshow(cvae_decoder(cvae_sal_vec)[s,:,:,k,0]);plt.xticks([]);plt.yticks([]);plt.title('salient')
-
+    plt.imshow(plot_im_sal);plt.xticks([]);plt.yticks([]);plt.title('salient')
     plt.subplot(1,4,4)
-    plt.imshow(cvae_decoder(cvae_bg_vec)[s,:,:,k,0]);plt.xticks([]);plt.yticks([]);plt.title('background')
+    plt.imshow(plot_im_bg);plt.xticks([]);plt.yticks([]);plt.title('background')
     
     plt.show()
     
@@ -242,7 +278,7 @@ def str_to_ordinal(inVec):
     return evec
 
 
-def plot_cvae_silhouettes(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,l=5,w=2):
+def plot_cvae_silhouettes(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2):
     from sklearn.metrics import silhouette_score
     
     z = z_encoder.predict(ABIDE_data)[w]
@@ -250,7 +286,7 @@ def plot_cvae_silhouettes(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,l=5
     
     
     if not keys:
-        keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','ScannerID','ScanSiteID','FIQ']
+        keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','Sex','ScannerID','ScanSiteID','FIQ']
     
     #l = 5 # How many bings
     arr = np.zeros((len(keys),2))
@@ -259,7 +295,7 @@ def plot_cvae_silhouettes(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,l=5
         vec = df[keys[i]].values
         v = (vec!=-9.999e+03) * ~pd.isnull(vec) * sub_slice
         vecv = vec[v]
-        vecv = np.digitize(vec[v],np.linspace(vec[v].min(),vec[v].max(),5))
+        vecv = np.digitize(vec[v],np.linspace(vec[v].min(),vec[v].max(),l))
         arr[i,0]= silhouette_score(z[v],vecv)
         arr[i,1]= silhouette_score(s[v],vecv)
 
@@ -270,22 +306,22 @@ def plot_cvae_silhouettes(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,l=5
     plt.show()
     
     
-def get_sil_diff(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,w=2):
+def get_sil_diff(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2):
     
     z = z_encoder.predict(ABIDE_data)[w]
     s = s_encoder.predict(ABIDE_data)[w]
 
     if not keys:
-        keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','ScannerID','ScanSiteID','FIQ']
+        keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','Sex','ScannerID','ScanSiteID','FIQ']
         #keys = ['AgeAtScan','ScannerID','ScanSiteID','FIQ']
 
     arr = np.zeros((len(keys),2))
     #mat = np.zeros((len(keys),l))
     for i in range(len(keys)):
         vec = df[keys[i]].values
-        v = (vec!=-9.999e+03) * ~pd.isnull(vec) * patients
+        v = (vec!=-9.999e+03) * ~pd.isnull(vec) * sub_slice
         vecv = vec[v]
-        vecv = np.digitize(vec[v],np.linspace(vec[v].min(),vec[v].max(),5))
+        vecv = np.digitize(vec[v],np.linspace(vec[v].min(),vec[v].max(),l))
         arr[i,0]= silhouette_score(z[v],vecv)
         arr[i,1]= silhouette_score(s[v],vecv)
 
@@ -294,31 +330,58 @@ def get_sil_diff(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None,w=2):
     return dif
 
 
-def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=None):
+def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2,ax=None,title=None):
     
     if not keys:
-        keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','ScannerID','ScanSiteID','FIQ']
+        keys = default_keys
         
-    dmat = np.array([get_sil_diff(ABIDE_data,z_encoder,s_encoder,sub_slice,keys=keys) for i in range(10)])
-
+    dmat = np.array([get_sil_diff(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=keys,l=l,w=w) for i in range(10)])
+    
     ys = dmat.mean(axis=0)
     yerr = dmat.std(axis=0)
     xs = np.arange(dmat.shape[1])
-
-    plt.bar(xs,ys);
-    plt.errorbar(xs,ys,yerr,fmt='r.');
-    plt.xticks(xs,labels=keys,rotation=45);
-    plt.ylabel('SL-BG Silhouette Difference')
+    
+    if not ax:
+        plt.bar(xs,ys);
+        plt.errorbar(xs,ys,yerr,fmt='r.');
+        plt.xticks(xs,labels=keys,rotation=90);
+        plt.ylabel('SL-BG Silhouette Difference')
+    else:
+        ax.bar(xs,ys);
+        ax.errorbar(xs,ys,yerr,fmt='r.');
+        ax.set_xticks(xs);
+        ax.set_xticklabels(keys,rotation=90)
+        ax.set_ylabel('SL-BG Silhouette Difference')
+        ax.set_title(title)
+    
+        
     plt.show()
+# def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2):
+    
+#     if not keys:
+#         keys = default_keys
+        
+#     dmat = np.array([get_sil_diff(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=keys,l=l,w=w) for i in range(10)])
+
+#     ys = dmat.mean(axis=0)
+#     yerr = dmat.std(axis=0)
+#     xs = np.arange(dmat.shape[1])
+
+#     plt.bar(xs,ys);
+#     plt.errorbar(xs,ys,yerr,fmt='r.');
+#     plt.xticks(xs,labels=keys,rotation=90);
+#     plt.ylabel('SL-BG Silhouette Difference')
+#     plt.show()
     
     
 # Progress Plotting Functions
-def net_query():
+def cvae_query(ABIDE_data,s_encoder,z_encoder,cvae_decoder):
     i = 0
     n = 50
     v_sl = s_encoder.predict(ABIDE_data[0:n,:,:,:])[i]#[0,:]
     v_bg = z_encoder.predict(ABIDE_data[0:n,:,:,:])[i]#[0,:]
-    v = np.hstack((v_sl,v_bg))
+    #v = np.hstack((v_sl,v_bg))
+    v = np.hstack((v_bg,v_sl))
     latent_vec = v;
     out = cvae_decoder.predict(latent_vec)
 
@@ -372,3 +435,63 @@ def plot_trainProgress(loss,im,im1):
     plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=.15, hspace=.45);
 
     plt.show();
+    
+def fit_rsa(inVec,ABIDE_data,g,encs,data_scale='ratio',metric='correlation'):
+    # encs = [z_encoder,s_encoder,encoder]
+
+    v = g*~np.isnan(inVec)
+    vec_model = get_triu(make_RDM(inVec[v],data_scale=data_scale))
+    
+    vecs = [get_triu(make_RDM(enc.predict(ABIDE_data[v,:,:,:])[2])) for enc in encs]
+    #f = [np.corrcoef(vec_model,vec)[0,1] for vec in vecs]
+    f = [1-pdist(np.vstack((vec_model,vec)),metric=metric)[0] for vec in vecs]
+    return f
+
+
+def plot_rsa_results(rsa_results,ax=None,title=None):
+    m = rsa_results.mean(axis=0)
+    se = rsa_results.std(axis=0)
+    xs = np.arange(len(m))
+
+    if not ax:
+        plt.bar(xs,m);
+        plt.errorbar(xs,m,se,fmt='r.');
+        plt.xticks(xs,labels=['BG','SL','VAE']);
+    else:
+        ax.bar(xs,m);
+        ax.errorbar(xs,m,se,fmt='r.');
+        ax.set_xticks(xs)
+        #ax.set_xticklabels(['BG','SL','VAE'][xs])
+        ax.set_xticklabels(np.array(['BG','SL','VAE'])[xs])
+        ax.set_title(title)
+        
+        
+def make_RDM(inVec,data_scale='ratio',metric='euclidean'):
+    vec = inVec
+    vec = (vec - min(vec.flatten())) / (max(vec.flatten())-min(vec.flatten()))
+    
+    if np.ndim(inVec)==1: # must be at least 2D
+        vec = np.vstack((vec,np.zeros(vec.shape))).transpose()
+                   
+    mat = squareform(pdist(vec,metric=metric).transpose())
+    
+    #vec = (vec - min(vec)) / (max(vec)-min(vec))
+    #mat = (mat - min(mat)) / (max(mat)-min(mat))
+
+    if data_scale=='ordinal':
+        mat[mat!=0]=1 # Make into zeros and ones
+        
+    return mat
+
+
+def get_triu(inMat):
+    #inMat = rdm_bg
+
+    assert np.ndim(inMat)==2, 'not 2 dim'
+    assert inMat.shape[0]==inMat.shape[1], 'not a square'
+
+    n = inMat.shape[0]
+    triu_vec = inMat[np.triu_indices(n=n,k=1)]
+
+    assert (squareform(triu_vec)==inMat).sum()/(n**2)>.9, 'unfaithful triu'
+    return triu_vec

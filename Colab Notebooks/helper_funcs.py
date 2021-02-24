@@ -9,6 +9,7 @@ from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import pdist
 from scipy.spatial.distance import squareform
 import seaborn as sns
+from sklearn.decomposition import PCA
 
 
 default_keys = ['ADOS_Total','ADOS_Social','DSMIVTR','AgeAtScan','Sex','ScannerID','ScanSiteID','FIQ']
@@ -174,15 +175,15 @@ def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
     
     
     
-def get_spaces(ABIDE_data,z_encoder,s_encoder,w=2):
+def get_spaces(ABIDE_data,z_encoder,s_encoder,w=2,method='UMAP'):
     
     encs = [z_encoder.predict, s_encoder.predict]
     bg_space = np.array(encs[0](ABIDE_data)[w])
     sl_space = np.array(encs[1](ABIDE_data)[w])
 
     if bg_space.shape[1]>2:
-        bg_space = dim_reduce(bg_space,method='UMAP')
-        sl_space = dim_reduce(sl_space,method='UMAP')
+        bg_space = dim_reduce(bg_space,method=method)
+        sl_space = dim_reduce(sl_space,method=method)
     return bg_space,sl_space
 
 
@@ -495,3 +496,34 @@ def get_triu(inMat):
 
     assert (squareform(triu_vec)==inMat).sum()/(n**2)>.9, 'unfaithful triu'
     return triu_vec
+
+
+def plot_pca_rsa(keys,df,ABIDE_data,patients,encs):
+    '''Takes in an array of scores. Does PCA on them. Calculates RSA based on PCA. 
+    If PC explains morethan .25 of total variance - plots model fit and results'''
+    
+    arr = df[keys].values
+    #isnan = np.isnan(arr[:,1]);
+    isnan = np.isnan(arr).sum(axis=1)!=0
+    print(f'{sum(patients[~isnan])} subjects')
+
+    n_components = 3
+    reducer = PCA(n_components=n_components)
+    components = reducer.fit_transform(arr[~isnan,:])
+    
+    print(reducer.explained_variance_ratio_)
+
+    n_components = max(np.nonzero(reducer.explained_variance_ratio_>.25)[0])+1
+
+    #rdms = [make_RDM(components[:,i]) for i in range(n_components)]
+    rdms = [make_RDM(components[patients[~isnan],i]) for i in range(n_components)]
+    f,ax = plt.subplots(1,3,figsize=(15,5))
+    #[sns.heatmap(rdms[i],cbar=[],ax=ax[i],xticklabels=[],yticklabels=[]) for i in range(n_components)]
+    [sns.heatmap(rdms[i],cbar=[],ax=ax[i]) for i in range(n_components)]
+
+
+    f,ax = plt.subplots(1,3,figsize=(15,5))
+    for i in range(n_components):
+        rsa_results = [fit_rsa(components[:,i],ABIDE_data[~isnan,:,:,:],patients[~isnan],encs) for _ in range(10)]
+        rsa_results = np.array(rsa_results)
+        plot_rsa_results(rsa_results,ax=ax[i])

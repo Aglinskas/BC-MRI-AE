@@ -494,7 +494,7 @@ def get_triu(inMat):
     n = inMat.shape[0]
     triu_vec = inMat[np.triu_indices(n=n,k=1)]
 
-    assert (squareform(triu_vec)==inMat).sum()/(n**2)>.9, 'unfaithful triu'
+    #assert (squareform(triu_vec)==inMat).sum()/(n**2)>.9, 'unfaithful triu'
     return triu_vec
 
 

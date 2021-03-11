@@ -523,7 +523,11 @@ def plot_pca_rsa(keys,df,ABIDE_data,patients,encs):
 
 
     f,ax = plt.subplots(1,3,figsize=(15,5))
+    res = list()
     for i in range(n_components):
         rsa_results = [fit_rsa(components[:,i],ABIDE_data[~isnan,:,:,:],patients[~isnan],encs) for _ in range(10)]
         rsa_results = np.array(rsa_results)
         plot_rsa_results(rsa_results,ax=ax[i])
+        res.append(rsa_results)
+        
+    return res

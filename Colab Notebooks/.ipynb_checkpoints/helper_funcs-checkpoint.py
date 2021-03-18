@@ -30,13 +30,13 @@ def get_weights(fdir=None):
     return items
 
 
-def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
+def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None,return_axes=False):
     space_lbls = ['Background','Salient','VAE']
 
     if type(v)==type(None):
         v = np.repeat(True,len(spaces[0]))
         
-    plt.figure(figsize=(12,4))
+    fig = plt.figure(figsize=(12,4))
     for i in range(len(spaces)):
         plt.subplot(1,3,i+1)
         
@@ -71,6 +71,9 @@ def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
 
     plt.subplots_adjust(left=None,bottom=None,right=None,top=None,wspace=.3,hspace=None,) 
     print(sum(v))
+    
+    if return_axes:
+        return fig
     
     
 def get_batch_idx(df,batch_size = 64):
@@ -127,48 +130,48 @@ def dim_reduce(z,method='UMAP'):
     
     return tiny
 
-def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
-    space_lbls = ['Background','Salient','VAE']
+# def cscatter(spaces,v=None,c=None,clim=None,clbl=None,legend=None):
+#     space_lbls = ['Background','Salient','VAE']
 
-    if type(v)==type(None):
-        v = np.repeat(True,len(spaces[0]))
+#     if type(v)==type(None):
+#         v = np.repeat(True,len(spaces[0]))
         
-    plt.figure(figsize=(12,4))
-    for i in range(len(spaces)):
-        plt.subplot(1,3,i+1)
+#     plt.figure(figsize=(12,4))
+#     for i in range(len(spaces)):
+#         plt.subplot(1,3,i+1)
         
-        if type(c)!=type(None) and len(np.unique(c)) > 10: # continus colourbar
-            #print('continuues colourbar')
+#         if type(c)!=type(None) and len(np.unique(c)) > 10: # continus colourbar
+#             #print('continuues colourbar')
             
-            plt.scatter(spaces[i][v,0],spaces[i][v,1],c=c)
-            if type(clim)==type(None): #if clim not passed, 
-                clim = (min(c),max(c)) # calc min max
-            plt.clim(clim[0],clim[1]) # do clim regardless
+#             plt.scatter(spaces[i][v,0],spaces[i][v,1],c=c)
+#             if type(clim)==type(None): #if clim not passed, 
+#                 clim = (min(c),max(c)) # calc min max
+#             plt.clim(clim[0],clim[1]) # do clim regardless
                 
-            cbar = plt.colorbar()
-            cbar.ax.set_ylabel(clbl,rotation=270,labelpad=20,fontsize=16,fontweight='bold')    
+#             cbar = plt.colorbar()
+#             cbar.ax.set_ylabel(clbl,rotation=270,labelpad=20,fontsize=16,fontweight='bold')    
                 
-        elif type(c)!=type(None) and len(np.unique(c)) < 10: # categorical colourbar
-            #print('categorical colourbar')
-            for j in np.unique(c):
-                plt.scatter(spaces[i][c[v]==j,0],spaces[i][c[v]==j,1],alpha=.5)
+#         elif type(c)!=type(None) and len(np.unique(c)) < 10: # categorical colourbar
+#             #print('categorical colourbar')
+#             for j in np.unique(c):
+#                 plt.scatter(spaces[i][c[v]==j,0],spaces[i][c[v]==j,1],alpha=.5)
                     
-            if type(legend)==type(None):
-                legend = [str(i) for i in np.unique(c)]    
-            plt.legend(legend)
+#             if type(legend)==type(None):
+#                 legend = [str(i) for i in np.unique(c)]    
+#             plt.legend(legend)
 
-        else:
-           #print('else')
-            plt.scatter(spaces[i][v,0],spaces[i][v,1])
+#         else:
+#            #print('else')
+#             plt.scatter(spaces[i][v,0],spaces[i][v,1])
             
         
-        #plt.scatter(spaces[i][v,0],spaces[i][v,1],c=c)
-        plt.xlabel('latent dim. 1');plt.ylabel('latent dim. 2')
-        plt.title(space_lbls[i])
+#         #plt.scatter(spaces[i][v,0],spaces[i][v,1],c=c)
+#         plt.xlabel('latent dim. 1');plt.ylabel('latent dim. 2')
+#         plt.title(space_lbls[i])
 
-    plt.subplots_adjust(left=None,bottom=None,right=None,top=None,wspace=.3,hspace=None,) 
-    #print(sum(v))
-    plt.show()
+#     plt.subplots_adjust(left=None,bottom=None,right=None,top=None,wspace=.3,hspace=None,) 
+#     #print(sum(v))
+#     plt.show()
     
     
     
@@ -449,21 +452,21 @@ def fit_rsa(inVec,ABIDE_data,g,encs,data_scale='ratio',metric='correlation'):
     return f
 
 
-def plot_rsa_results(rsa_results,ax=None,title=None):
+def plot_rsa_results(rsa_results,ax=None,title=None,xlbls=['BG','SL','VAE']):
     m = rsa_results.mean(axis=0)
     se = rsa_results.std(axis=0)
     xs = np.arange(len(m))
-
+    fmt = 'r '
     if not ax:
         plt.bar(xs,m);
-        plt.errorbar(xs,m,se,fmt='r.');
-        plt.xticks(xs,labels=['BG','SL','VAE']);
+        plt.errorbar(xs,m,se,fmt=fmt);
+        plt.xticks(xs,labels=xlbls);
     else:
         ax.bar(xs,m);
-        ax.errorbar(xs,m,se,fmt='r.');
+        ax.errorbar(xs,m,se,fmt=fmt);
         ax.set_xticks(xs)
         #ax.set_xticklabels(['BG','SL','VAE'][xs])
-        ax.set_xticklabels(np.array(['BG','SL','VAE'])[xs])
+        ax.set_xticklabels(np.array(xlbls)[xs])
         ax.set_title(title)
         
         
@@ -498,7 +501,7 @@ def get_triu(inMat):
     return triu_vec
 
 
-def plot_pca_rsa(keys,df,ABIDE_data,patients,encs):
+def plot_pca_rsa(keys,df,ABIDE_data,patients,encs,xlbls=['BG','SL','VAE'],thresh=.25):
     '''Takes in an array of scores. Does PCA on them. Calculates RSA based on PCA. 
     If PC explains morethan .25 of total variance - plots model fit and results'''
     
@@ -513,7 +516,7 @@ def plot_pca_rsa(keys,df,ABIDE_data,patients,encs):
     
     print(reducer.explained_variance_ratio_)
 
-    n_components = max(np.nonzero(reducer.explained_variance_ratio_>.25)[0])+1
+    n_components = max(np.nonzero(reducer.explained_variance_ratio_>thresh)[0])+1
 
     #rdms = [make_RDM(components[:,i]) for i in range(n_components)]
     rdms = [make_RDM(components[patients[~isnan],i]) for i in range(n_components)]
@@ -527,7 +530,7 @@ def plot_pca_rsa(keys,df,ABIDE_data,patients,encs):
     for i in range(n_components):
         rsa_results = [fit_rsa(components[:,i],ABIDE_data[~isnan,:,:,:],patients[~isnan],encs) for _ in range(10)]
         rsa_results = np.array(rsa_results)
-        plot_rsa_results(rsa_results,ax=ax[i])
+        plot_rsa_results(rsa_results,ax=ax[i],xlbls=xlbls)
         res.append(rsa_results)
         
     return res

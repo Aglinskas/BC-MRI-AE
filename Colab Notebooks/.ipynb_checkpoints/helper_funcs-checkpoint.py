@@ -334,7 +334,7 @@ def get_sil_diff(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2):
     return dif
 
 
-def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2,ax=None,title=None):
+def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,w=2,ax=None,title=None,return_arr=False):
     
     if not keys:
         keys = default_keys
@@ -357,6 +357,9 @@ def plot_cvae_dif_mat(ABIDE_data,z_encoder,s_encoder,df,sub_slice,keys=None,l=5,
         ax.set_xticklabels(keys,rotation=90)
         ax.set_ylabel('SL-BG Silhouette Difference')
         ax.set_title(title)
+    
+    if return_arr:
+        return dmat
     
         
     plt.show()

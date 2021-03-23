@@ -331,8 +331,12 @@ def get_MRI_CCVAE_3D(input_shape=(64,64,64,1), latent_dim=2, beta=1, disentangle
     cvae_loss = tf.keras.backend.mean(reconstruction_loss + beta*kl_loss + gamma*tc_loss + discriminator_loss)
     cvae.add_loss(cvae_loss)
     
-    #opt = tf.keras.optimizers.Adam(learning_rate=0.001,beta_1=0.9,beta_2=0.999,epsilon=1e-07,amsgrad=False,name='Adam')
-    opt = tf.keras.optimizers.RMSprop()
+    opt = tf.keras.optimizers.Adam(learning_rate=0.001,beta_1=0.9,beta_2=0.999,epsilon=1e-07,amsgrad=False,name='Adam')
+    
+#     opt = tf.keras.optimizers.SGD(
+#     learning_rate=0.01, momentum=0.0, nesterov=False, name='SGD')
+
+    #opt = tf.keras.optimizers.RMSprop(learning_rate=0.001, rho=0.9, momentum=0.9, epsilon=1e-07, centered=False, name='RMSprop')
     
     #cvae.compile(optimizer='rmsprop',run_eagerly=True)
     cvae.compile(optimizer=opt,run_eagerly=True)

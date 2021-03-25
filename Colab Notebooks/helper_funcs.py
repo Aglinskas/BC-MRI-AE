@@ -494,7 +494,7 @@ def make_RDM(inVec,data_scale='ratio',metric='euclidean'):
 def get_triu(inMat):
     #inMat = rdm_bg
 
-    assert np.ndim(inMat)==2, 'not 2 dim'
+    assert np.ndim(inMat)==2, 'not 2 dim, wtf'
     assert inMat.shape[0]==inMat.shape[1], 'not a square'
 
     n = inMat.shape[0]

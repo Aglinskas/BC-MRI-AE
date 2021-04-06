@@ -136,7 +136,12 @@ def get_MRI_VAE_3D(input_shape=(64,64,64,1), latent_dim=2, batch_size = 32, dise
         vae_loss = K.mean(reconstruction_loss) + K.mean(kl_loss)
 
     vae.add_loss(vae_loss)
-    vae.compile(optimizer='rmsprop')
+    opt = tf.keras.optimizers.Adam(learning_rate=0.001,beta_1=0.9,beta_2=0.999,epsilon=1e-07,amsgrad=False,name='Adam')
+        
+    #vae.compile(optimizer='rmsprop')
+    vae.compile(optimizer=opt)
+    
+
     if disentangle:
         vae.metrics_tensors = [reconstruction_loss, kl_loss, tc_loss, discriminator_loss]
         #     vae.summary()

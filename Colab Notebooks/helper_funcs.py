@@ -539,3 +539,39 @@ def plot_pca_rsa(keys,df,ABIDE_data,patients,encs,xlbls=['BG','SL','VAE'],thresh
     return res
 
 
+def inverse_tx_umap(targ,s_embedding):
+    targ = np.array(targ)
+    idx = np.argsort(((s_embedding-targ)**2).sum(axis=1))
+    return idx
+
+
+def get_umap_corners(s_embedding):
+    ax_min = s_embedding.min(axis=0)
+    ax_max = s_embedding.max(axis=0)
+    ax_mid = s_embedding.mean(axis=0)
+    
+#     ll = inverse_tx_umap((ax_min[0],ax_min[1]),s_embedding)
+#     lr = inverse_tx_umap((ax_max[0],ax_min[1]),s_embedding)
+#     tl = inverse_tx_umap((ax_min[0],ax_max[1]),s_embedding)
+#     tr = inverse_tx_umap((ax_max[0],ax_max[1]),s_embedding)
+
+    L = inverse_tx_umap((ax_min[0],ax_mid[1]),s_embedding)
+    R = inverse_tx_umap((ax_max[0],ax_mid[1]),s_embedding)
+    T = inverse_tx_umap((ax_mid[0],ax_max[1]),s_embedding)
+    B = inverse_tx_umap((ax_mid[0],ax_min[1]),s_embedding)
+    
+    cntr = inverse_tx_umap(s_embedding.mean(axis=0),s_embedding)
+    
+    map_ = dict()
+#     map_['ll'] = ll
+#     map_['lr'] = lr
+#     map_['tr'] = tr
+#     map_['tl'] = tl
+
+    map_['L'] = L
+    map_['R'] = R
+    map_['T'] = T
+    map_['B'] = B
+    map_['center'] = cntr
+
+    return map_

@@ -34,8 +34,12 @@ def get_MRI_VAE_3D(input_shape=(64,64,64,1), latent_dim=2, batch_size = 32, dise
 
     image_size, _, _, channels = input_shape
     kernel_size = 3
+    #filters = 32
+    #filters = 48
     filters = 16
+    
     intermediate_dim = 128
+    #intermediate_dim = 256
     epochs = 10
     nlayers = 2
       

@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.special import expit
+#from scipy.special import expit
 from sklearn.metrics import silhouette_score
 from tensorflow.keras.layers import *
 from tensorflow.keras import backend as K
@@ -9,7 +9,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.losses import mse
 import os
 import pandas as pd
-from glob import glob
+#from glob import glob
 
 def sampling(args):
     """Reparameterization trick by sampling fr an isotropic unit Gaussian.

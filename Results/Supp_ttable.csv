@@ -1,0 +1,19 @@
+Property,N subjects,Specific > VAE,Shared > VAE
+ABIDE,,,
+ADI_PCA,284,"deltatau = -0.01, t(9) = -2.00, p = 0.077","deltatau = 0.00, t(9) = 1.11, p = 0.296"
+ADOS (PCA),284,"deltatau = 0.01, t(9) = 3.52, p = 0.007","deltatau = 0.00, t(9) = -0.48, p = 0.643"
+ADOS Social,345,"deltatau = 0.01, t(9) = 1.77, p = 0.110","deltatau = 0.00, t(9) = -0.06, p = 0.957"
+ADOS Total,369,"deltatau = 0.01, t(9) = 4.40, p = 0.002","deltatau = 0.00, t(9) = 0.64, p = 0.536"
+Age,470,"deltatau = 0.02, t(9) = 6.16, p < .001","deltatau = 0.06, t(9) = 15.23, p < .001"
+DSM IV,456,"deltatau = 0.03, t(9) = 4.96, p < .001","deltatau = -0.01, t(9) = -1.38, p = 0.202"
+Full-Scale IQ,428,"deltatau = 0.01, t(9) = 1.87, p = 0.094","deltatau = 0.00, t(9) = -0.61, p = 0.554"
+Scanner Type,470,"deltatau = -0.06, t(9) = -19.73, p < .001","deltatau = 0.06, t(9) = 22.89, p < .001"
+Scanning Site,470,"deltatau = 0.01, t(9) = 5.62, p < .001","deltatau = 0.16, t(9) = 59.85, p < .001"
+Sex,470,"deltatau = -0.01, t(9) = -1.37, p = 0.203","deltatau = 0.02, t(9) = 3.07, p = 0.013"
+Vineland (PCA),69,"deltatau = 0.06, t(9) = 5.05, p < .001","deltatau = 0.00, t(9) = 0.42, p = 0.681"
+WISC (PCA),22,"deltatau = 0.07, t(9) = 2.15, p = 0.060","deltatau = -0.02, t(9) = -0.76, p = 0.468"
+SFARI,,,
+Full-Scale IQ,50,"deltatau = 0.00, t(9) = -0.20, p = 0.848","deltatau = 0.00, t(9) = -0.06, p = 0.957"
+Genotype,51,"deltatau = 0.04, t(9) = 6.49, p < .001","deltatau = -0.01, t(9) = -2.97, p = 0.016"
+Scanner Type,49,"deltatau = -0.05, t(9) = -2.35, p = 0.043","deltatau = 0.04, t(9) = 2.25, p = 0.051"
+Sex,51,"deltatau = -0.02, t(9) = -2.19, p = 0.056","deltatau = -0.01, t(9) = -1.68, p = 0.127"

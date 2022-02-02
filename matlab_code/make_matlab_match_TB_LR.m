@@ -2,7 +2,7 @@ cd '/Users/aidasaglinskas/Desktop/BC-MRI-AE/matlab_code'
 addpath('/Users/aidasaglinskas/Desktop/BC-MRI-AE/matlab_code')
 %%
 
-group = 'LR'
+group = 'TB'
 table = readtable(sprintf('../CSVs/corner_%s.csv',group));
 subs_high = table.high;
 subs_low = table.low;
